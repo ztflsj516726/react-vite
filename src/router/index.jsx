@@ -1,4 +1,5 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import BasicLayout from "@/layouts/BasicLayout";
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
@@ -26,6 +27,10 @@ const routes = [
         element: <Dashboard />
       }
     ]
+  },
+  {
+    path: "*",
+    element: <Navigate to="/dashboard" replace />
   }
 ];
 

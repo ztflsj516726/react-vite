@@ -1,12 +1,15 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import 'antd/dist/reset.css';
-import "./index.css";
 import App from "./App.jsx";
 
+// 引入 antd 样式
+import 'antd/dist/reset.css';
+// 引入自定义全局样式
+import './styles/global.scss';
+
 createRoot(document.getElementById("root")).render(
-<StrictMode>
+  <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
