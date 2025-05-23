@@ -1,17 +1,26 @@
 // src/LoginPage.js
 import React, { useState } from "react";
-import { Form, Input, Button, Typography } from "antd";
-import loginBg from "@/assets/login/login-bg.jpg";
+import { Form, Input, Button, Typography, message } from "antd";
+import loginBg from '@/assets/login/login-bg.jpg';
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
-import "./index.scss";
+import * as userApi from "@/api/user.js";
+import "./login.scss";
+import auth from "@/util/auth.js";
+import { useNavigate } from "react-router-dom";
+
 const { Title } = Typography;
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
   const handleSubmit = () => {
-    // 在这里执行登录逻辑，比如API调用
-    console.log("Username:", username, "Password:", password);
+    userApi.userlogin({ username, password }).then((res) => {
+      auth.setToken(res.data.token);
+      message.success('登录成功！',3);
+      navigate('/dashboard');
+    })
   };
 
   return (
@@ -41,7 +50,7 @@ const Login = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Input.Password 
+          <Input.Password
             prefix={<KeyOutlined style={{ color: "white" }} />}
             type="password"
             placeholder="密码"
