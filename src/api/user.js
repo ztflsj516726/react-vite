@@ -1,5 +1,6 @@
 import { request } from "../util/request";
 
+// 用户登录
 export function userLogin(data) {
   return request({
     method: "post",
@@ -7,10 +8,30 @@ export function userLogin(data) {
     data,
   });
 }
+
+// 用户注册
 export function userRegister(data) {
   return request({
     method: "post",
     url: "/user/register",
+    data,
+  });
+}
+
+// hi
+export function hi(data) {
+  return request({
+    method: "get",
+    url: "/user/hi",
+    data,
+  });
+}
+
+// 用户信息
+export function getUserInfo(data) {
+  return request({
+    method: "get",
+    url: "/user/userInfo",
     data,
   });
 }

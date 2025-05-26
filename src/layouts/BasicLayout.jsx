@@ -4,8 +4,6 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
-  DashboardOutlined,
 } from "@ant-design/icons";
 import logo from "@/assets/logo.png";
 import "./BasicLayout.scss";

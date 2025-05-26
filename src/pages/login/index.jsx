@@ -6,12 +6,14 @@ import * as userApi from "@/api/user.js";
 import "./style.scss";
 import auth from "@/util/auth.js";
 import { useNavigate } from "react-router-dom";
+import { useComContext } from "@/context/Context";
 
 const { Title } = Typography;
 
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { setUserInfo } = useComContext();
   const handleSubmit = (values) => {
     setLoading(true);
     userApi
@@ -19,7 +21,11 @@ const Register = () => {
       .then((res) => {
         auth.setToken(res.data.token);
         message.success("登录成功！", 3);
-        navigate("/dashboard");
+        navigate("/");
+        return userApi.getUserInfo();
+      })
+      .then((res) => {
+        setUserInfo(res.data);
       })
       .finally(() => {
         setLoading(false);

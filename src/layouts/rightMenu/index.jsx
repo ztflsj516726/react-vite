@@ -4,8 +4,12 @@ import { Dropdown, Button, Space, message } from "antd";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import authTool from "@/util/auth";
 import { useNavigate } from "react-router-dom";
+import { useComContext } from "@/context/Context";
 const RightMenu = () => {
   const navigate = useNavigate();
+
+  const { getUserInfo } = useComContext();
+  const UserInfo = getUserInfo();
 
   const handleLogout = () => {
     authTool.clearToken();
@@ -31,14 +35,17 @@ const RightMenu = () => {
   ];
 
   return (
-    <Dropdown menu={{ items }}>
-      <Button>
-        <Space>
-          设置
-          <DownOutlined />
-        </Space>
-      </Button>
-    </Dropdown>
+    <div>
+      欢迎您，
+      <Dropdown menu={{ items }}>
+        <Button>
+          <Space>
+            {UserInfo?.username}
+            <DownOutlined />
+          </Space>
+        </Button>
+      </Dropdown>
+    </div>
   );
 };
 
