@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import logo from "@/assets/logo.png";
 import "./BasicLayout.scss";
 import RightMenu from "./rightMenu";
@@ -18,7 +15,7 @@ const BasicLayout = () => {
   const location = useLocation();
 
   const menuItems = customeRoutes()[0].children.map((item) => {
-    if (item.path) {
+    if (item.path && !item.hidden) {
       return {
         key: "/" + item.path,
         ...item,

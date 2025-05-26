@@ -3,11 +3,10 @@ import { Form, Input, Button, Typography, message } from "antd";
 import loginBg from "@/assets/login/login-bg.jpg";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import * as userApi from "@/api/user.js";
-import "./style.scss";
 import auth from "@/util/auth.js";
 import { useNavigate } from "react-router-dom";
 import { useComContext } from "@/context/Context";
-
+import styles from "./login.module.scss";
 const { Title } = Typography;
 
 const Register = () => {
@@ -34,6 +33,7 @@ const Register = () => {
 
   return (
     <div
+      className={styles.formWrapper}
       style={{
         display: "flex",
         justifyContent: "center",

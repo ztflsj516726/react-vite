@@ -17,7 +17,7 @@ const RightMenu = () => {
     message.success("退出登录成功");
   };
   const handleProfile = () => {
-    window.open("https://ztflsj516726.github.io/");
+    navigate("/profile");
   };
   const items = [
     {

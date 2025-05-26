@@ -6,6 +6,7 @@ import Dashboard from "@/pages/Dashboard";
 import User from "@/pages/User";
 import Register from "@/pages/Register";
 import Draw from "@/pages/Draw";
+import ProFile from "@/pages/Profile";
 import { UserOutlined, DashboardOutlined } from "@ant-design/icons";
 export const customeRoutes = () => {
   return [
@@ -30,6 +31,12 @@ export const customeRoutes = () => {
           path: "draw",
           element: <Draw />,
           icon: <UserOutlined />,
+        },
+        {
+          label: "个人信息",
+          path: "profile",
+          element: <ProFile />,
+          hidden: true,
         },
         {
           path: "",
