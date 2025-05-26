@@ -81,11 +81,15 @@ body {
   .header {
     padding: 0 $spacing-lg;
     background: #fff;
-    @include flex-start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: $box-shadow;
     width: 100%;
+    position: relative;
 
     .trigger {
+      display: block;
       font-size: $font-size-lg;
       cursor: pointer;
       @include transition;
@@ -94,6 +98,7 @@ body {
         color: $primary-color;
       }
     }
+ 
   }
 
   // 内容区域

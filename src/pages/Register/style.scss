@@ -24,4 +24,17 @@
       background-color: transparent !important;
     }
   }
+  .tip {
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+    .high-light {
+      cursor: pointer;
+      color: #add8e6;
+      transition: all 0.3s ease; /* 平滑过渡效果 */
+      &:hover {
+        color: yellow;
+      }
+    }
+  }
 }

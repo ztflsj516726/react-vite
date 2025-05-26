@@ -1,10 +1,10 @@
+// src/LoginPage.js
 import React, { useState } from "react";
 import { Form, Input, Button, Typography, message } from "antd";
 import loginBg from "@/assets/login/login-bg.jpg";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import * as userApi from "@/api/user.js";
 import "./style.scss";
-import auth from "@/util/auth.js";
 import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
@@ -12,14 +12,15 @@ const { Title } = Typography;
 const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
+
   const handleSubmit = (values) => {
     setLoading(true);
     userApi
-      .userLogin(values)
-      .then((res) => {
-        auth.setToken(res.data.token);
-        message.success("登录成功！", 3);
-        navigate("/dashboard");
+      .userRegister(values)
+      .then(() => {
+        message.success("注册成功", 3);
+        navigate("/login");
       })
       .finally(() => {
         setLoading(false);
@@ -36,19 +37,24 @@ const Register = () => {
         backgroundImage: `url(${loginBg})`,
       }}
     >
-      <Form onFinish={handleSubmit} style={{ width: 300 }} className="ant-form">
+      <Form 
+        form={form}
+        onFinish={handleSubmit} 
+        style={{ width: 300 }} 
+        className="ant-form"
+      >
         <Title
           level={3}
           style={{ textAlign: "center", marginBottom: 20, color: "white" }}
         >
-          用户登录
+          用户注册
         </Title>
         <Form.Item
           name="username"
           required
           rules={[
-            { required: true, message: "请输入用户名" },
-            { max: 20, message: "用户名不能超过20个字符" },
+            { required: true, message: '请输入用户名' },
+            { max: 20, message: '用户名不能超过20个字符' }
           ]}
         >
           <Input
@@ -61,28 +67,27 @@ const Register = () => {
           name="password"
           required
           rules={[
-            { required: true, message: "请输入密码" },
-            { max: 20, message: "密码不能超过20个字符" },
-            { min: 6, message: "密码不能少于6个字符" },
+            { required: true, message: '请输入密码' },
+            { max: 20, message: '密码不能超过20个字符' },
+            { min: 6, message: '密码不能少于6个字符' }
           ]}
         >
           <Input.Password
             prefix={<KeyOutlined style={{ color: "white" }} />}
-            type="password"
             placeholder="密码"
             size="large"
           />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" block loading={loading}>
-            登录
+            注册
           </Button>
         </Form.Item>
         <Form.Item>
           <div className="tip">
-            还没有账户？去
-            <span className="high-light" onClick={() => navigate("/register")}>
-              注册
+            已有账户？去
+            <span className="high-light" onClick={() => navigate("/login")}>
+              登录
             </span>
           </div>
         </Form.Item>
