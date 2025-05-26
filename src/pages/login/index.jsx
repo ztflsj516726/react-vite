@@ -6,7 +6,7 @@ import * as userApi from "@/api/user.js";
 import auth from "@/util/auth.js";
 import { useNavigate } from "react-router-dom";
 import { useComContext } from "@/context/Context";
-import styles from "./login.module.scss";
+import './login.scss'
 const { Title } = Typography;
 
 const Register = () => {
@@ -33,7 +33,7 @@ const Register = () => {
 
   return (
     <div
-      className={styles.formWrapper}
+      className="login"
       style={{
         display: "flex",
         justifyContent: "center",

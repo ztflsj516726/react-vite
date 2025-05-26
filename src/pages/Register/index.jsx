@@ -4,9 +4,8 @@ import { Form, Input, Button, Typography, message } from "antd";
 import loginBg from "@/assets/login/login-bg.jpg";
 import { UserOutlined, KeyOutlined } from "@ant-design/icons";
 import * as userApi from "@/api/user.js";
-import "./style.scss";
 import { useNavigate } from "react-router-dom";
-
+import '../Login/login.scss'
 const { Title } = Typography;
 
 const Register = () => {
@@ -29,6 +28,7 @@ const Register = () => {
 
   return (
     <div
+    className="login"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -37,10 +37,10 @@ const Register = () => {
         backgroundImage: `url(${loginBg})`,
       }}
     >
-      <Form 
+      <Form
         form={form}
-        onFinish={handleSubmit} 
-        style={{ width: 300 }} 
+        onFinish={handleSubmit}
+        style={{ width: 300 }}
         className="ant-form"
       >
         <Title
@@ -53,8 +53,8 @@ const Register = () => {
           name="username"
           required
           rules={[
-            { required: true, message: '请输入用户名' },
-            { max: 20, message: '用户名不能超过20个字符' }
+            { required: true, message: "请输入用户名" },
+            { max: 20, message: "用户名不能超过20个字符" },
           ]}
         >
           <Input
@@ -67,9 +67,9 @@ const Register = () => {
           name="password"
           required
           rules={[
-            { required: true, message: '请输入密码' },
-            { max: 20, message: '密码不能超过20个字符' },
-            { min: 6, message: '密码不能少于6个字符' }
+            { required: true, message: "请输入密码" },
+            { max: 20, message: "密码不能超过20个字符" },
+            { min: 6, message: "密码不能少于6个字符" },
           ]}
         >
           <Input.Password

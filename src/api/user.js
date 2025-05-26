@@ -27,11 +27,20 @@ export function hi(data) {
   });
 }
 
-// 用户信息
+// 获取用户信息
 export function getUserInfo(data) {
   return request({
     method: "get",
     url: "/user/userInfo",
+    data,
+  });
+}
+
+// 更新用户信息
+export function updateUserInfo(data) {
+  return request({
+    method: "post",
+    url: "/user/updateInfo",
     data,
   });
 }

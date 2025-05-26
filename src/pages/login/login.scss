@@ -1,7 +1,7 @@
 /* MyForm.module.scss */
-.formWrapper {
+.login {
   .ant-form {
-    :global(.ant-input) {
+    .ant-input {
       background-color: transparent;
       color: white;
 
@@ -16,7 +16,7 @@
       }
     }
 
-    :global(.ant-input-affix-wrapper) {
+    .ant-input-affix-wrapper {
       border: 2px white solid;
       background-color: transparent;
       color: white;

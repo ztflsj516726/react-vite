@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import { Dropdown, Button, Space, message } from "antd";
+import { Dropdown, Button, Space, message, Modal } from "antd";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import authTool from "@/util/auth";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,20 @@ const RightMenu = () => {
 
   const { getUserInfo } = useComContext();
   const UserInfo = getUserInfo();
+  const { confirm } = Modal;
 
   const handleLogout = () => {
-    authTool.clearToken();
-    navigate("/login");
-    message.success("退出登录成功");
+    confirm({
+      title: "确认退出登录？",
+      okText: "确认",
+      okType: "danger",
+      cancelText: "取消",
+      onOk() {
+        authTool.clearToken();
+        navigate("/login");
+        message.success("退出登录成功");
+      },
+    });
   };
   const handleProfile = () => {
     navigate("/profile");

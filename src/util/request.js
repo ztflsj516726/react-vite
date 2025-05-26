@@ -1,6 +1,6 @@
 // request.js
 import axios from "axios";
-import { message as antMessage } from "antd";
+import { message } from "antd";
 
 // 创建axios实例
 const service = axios.create({
@@ -23,27 +23,37 @@ service.interceptors.request.use(
 // 响应拦截器：统一处理错误
 service.interceptors.response.use(
   (response) => response.data, // 直接返回数据部分
-  // (error) => {
-  //   // 你可以根据状态码做不同处理
-  //   if (error.response) {
-  //     if (error.response.status === 401) {
-  //       antMessage.error("用户登录信息失效");
-  //       // 判断当前是否在登录页
-  //       const isLoginPage = window.location.pathname === '/login';
-  //       if (!isLoginPage) {
-  //         // 不在登录页才跳转
-  //         window.location.href = "/login";
-  //       }
-  //     }
-  //     // 显示错误信息
-  //     antMessage.error(error.response.data?.message || '请求失败');
-  //     // 其它错误处理
-  //     return Promise.reject(error.response.data);
-  //   }
-  //   // 处理网络错误
-  //   antMessage.error('网络错误，请稍后重试');
-  //   return Promise.reject(error);
-  // }
+  (error) => {
+    // 你可以根据状态码做不同处理
+    if (error.response) {
+      if (error.response.status === 401) {
+        message.error("用户登录信息失效");
+        // 判断当前是否在登录页
+        const isLoginPage = window.location.pathname === "/login";
+        if (!isLoginPage) {
+          // 不在登录页才跳转
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 1000);
+        }
+      } else if (error.response.status === 403) {
+        message.error("该用户被禁用");
+        // 判断当前是否在登录页
+        const isLoginPage = window.location.pathname === "/login";
+        if (!isLoginPage) {
+          // 不在登录页才跳转
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 1000);
+        }
+      } else {
+        // 显示错误信息
+        message.error(error.response.data?.message || "请求失败");
+        // 其它错误处理
+        return Promise.reject(error.response.data);
+      }
+    }
+  }
 );
 
 /**
