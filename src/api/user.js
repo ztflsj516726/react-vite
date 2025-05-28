@@ -28,11 +28,10 @@ export function hi(data) {
 }
 
 // 获取用户信息
-export function getUserInfo(data) {
+export function getUserInfo() {
   return request({
     method: "get",
     url: "/user/userInfo",
-    data,
   });
 }
 
@@ -44,3 +43,4 @@ export function updateUserInfo(data) {
     data,
   });
 }
+
