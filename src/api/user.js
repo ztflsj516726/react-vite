@@ -43,4 +43,11 @@ export function updateUserInfo(data) {
     data,
   });
 }
-
+// 用户分页
+export function userList(params) {
+  return request({
+    method: "get",
+    url: "/user/userList",
+    params,
+  });
+}

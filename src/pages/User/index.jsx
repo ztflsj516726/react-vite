@@ -1,10 +1,9 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { ProTable, TableDropdown } from "@ant-design/pro-components";
-import { Button, Dropdown, Space, Tag } from "antd";
+import { ProTable } from "@ant-design/pro-components";
+import { Button, Space, Tag } from "antd";
 import { useRef } from "react";
 import { waitTime } from "./utils";
 import * as userApi from "@/api/user";
-import axios from "axios";
 
 const columns = [
   {
@@ -13,11 +12,10 @@ const columns = [
     width: 48,
   },
   {
-    title: "标题",
-    dataIndex: "title",
+    title: "用户名",
+    dataIndex: "username",
     copyable: true,
     ellipsis: true,
-    tooltip: "标题过长会自动收缩",
     formItemProps: {
       rules: [
         {
@@ -28,70 +26,53 @@ const columns = [
     },
   },
   {
+    title: "邮箱",
+    dataIndex: "email",
+    copyable: true,
+    ellipsis: true,
+  },
+  {
+    title: "电话",
+    dataIndex: "phone",
+    copyable: true,
+    ellipsis: true,
+  },
+  {
     disable: true,
     title: "状态",
-    dataIndex: "state",
+    dataIndex: "status",
     filters: true,
     onFilter: true,
     ellipsis: true,
     valueType: "select",
     valueEnum: {
-      all: { text: "超长".repeat(50) },
-      open: {
-        text: "未解决",
+      0: {
+        text: "禁用",
         status: "Error",
       },
-      closed: {
-        text: "已解决",
+      1: {
+        text: "启用",
         status: "Success",
         disabled: true,
       },
-      processing: {
-        text: "解决中",
-        status: "Processing",
-      },
     },
-  },
-  {
-    disable: true,
-    title: "标签",
-    dataIndex: "labels",
-    search: false,
-    renderFormItem: (_, { defaultRender }) => {
-      return defaultRender(_);
-    },
-    render: (_, record) => (
-      <Space>
-        {record.labels.map(({ name, color }) => (
-          <Tag color={color} key={name}>
-            {name}
-          </Tag>
-        ))}
-      </Space>
-    ),
-  },
-  {
-    title: "创建时间",
-    key: "showTime",
-    dataIndex: "created_at",
-    valueType: "date",
-    sorter: true,
     hideInSearch: true,
   },
   {
     title: "创建时间",
-    dataIndex: "created_at",
-    valueType: "dateRange",
-    hideInTable: true,
-    search: {
-      transform: (value) => {
-        return {
-          startTime: value[0],
-          endTime: value[1],
-        };
-      },
-    },
+    key: "showTime",
+    dataIndex: "createdAt",
+    valueType: "dateTime",
+    hideInSearch: true,
   },
+  {
+    title: "更新时间",
+    key: "showTime",
+    dataIndex: "updatedAt",
+    valueType: "dateTime",
+    hideInSearch: true,
+  },
+
   {
     title: "操作",
     valueType: "option",
@@ -108,7 +89,7 @@ const columns = [
       <a href={record.url} key="view-detail">
         查看
       </a>,
-      <a onClick={() => {}} key="delete" style={{color:"red"}}>
+      <a onClick={() => {}} key="delete" style={{ color: "red" }}>
         删除
       </a>,
     ],
@@ -119,11 +100,13 @@ const UserList = () => {
   const actionRef = useRef(null);
   const handleQuery = async (params) => {
     await waitTime(500);
-    return axios
-      .get("https://proapi.azurewebsites.net/github/issues", { params })
-      .then((res) => {
-        return res.data;
-      });
+    return userApi.userList(params).then((res) => {
+      return {
+        success: true,
+        total: res.data,
+        data: res.data.list,
+      };
+    });
   };
   return (
     <ProTable
@@ -170,8 +153,8 @@ const UserList = () => {
           key="button"
           icon={<PlusOutlined />}
           onClick={() => {
-            console.log("actionRef",actionRef);
-            
+            console.log("actionRef", actionRef);
+
             actionRef.current?.reload();
           }}
           type="primary"
